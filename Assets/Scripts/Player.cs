@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] Helicopter helicopter;
     [SerializeField] GameObject spawnPoints;
-    [SerializeField] bool respawn = false;
-
+    [SerializeField] AudioClip startVoice;
+    [SerializeField] GameObject landingArea;
+    
     private Transform[] listOfSpawnPointsTransform;
-    private bool lastToggle = false;
     private CharacterController characterController;
+    private AudioSource audioSource;
+    private bool respawn = false;
+    private bool lastToggle = false;
+    
     // Start is called before the first frame update
     void Start()
     {
         listOfSpawnPointsTransform = spawnPoints.GetComponentsInChildren<Transform>();
         characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
+
+        PlayPlayerBeginSound();
+    }
+
+    private void PlayPlayerBeginSound()
+    {
+        audioSource.PlayOneShot(startVoice);
     }
 
     // Update is called once per frame
@@ -38,5 +51,11 @@ public class Player : MonoBehaviour
         transform.position = listOfSpawnPointsTransform[index].transform.position;
 
         characterController.enabled = true; // Turn it back on when done teleport the player
+    }
+
+    private void OnFindClearArea()
+    {
+        helicopter.Call();
+        Instantiate(landingArea, transform.position, transform.rotation);
     }
 }
