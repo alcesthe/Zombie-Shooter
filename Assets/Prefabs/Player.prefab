@@ -508,6 +508,7 @@ MonoBehaviour:
   helicopter: {fileID: 0}
   spawnPoints: {fileID: 0}
   startVoice: {fileID: 8300000, guid: 6f49368f721214fcc81fda6a7ccf9343, type: 3}
+  landingArea: {fileID: 8121104896575700803, guid: ce5ade6d21d29c4499791eb5718076cf, type: 3}
 --- !u!1 &8772504825489292237
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 30, y: 30, z: 40}
-  m_Center: {x: 0, y: 5, z: 0}
+  m_Center: {x: 0, y: 17, z: 0}
 --- !u!114 &4912773425357477973
 MonoBehaviour:
   m_ObjectHideFlags: 0
