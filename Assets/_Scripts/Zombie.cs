@@ -10,6 +10,7 @@ public class Zombie : MonoBehaviour
     private GameObject player;
     private AICharacterControl aICharacterControl;
     private NavMeshAgent navMeshAgent;
+    [SerializeField] float health = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +33,19 @@ public class Zombie : MonoBehaviour
         navMeshAgent.enabled = true;
         aICharacterControl.enabled = true;
         aICharacterControl.target = player.transform;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0f)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
