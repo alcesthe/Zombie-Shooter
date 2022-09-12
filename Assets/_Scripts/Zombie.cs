@@ -15,22 +15,22 @@ public class Zombie : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        // Find the player in Scene and assign player to AICharacterControl.target
-        aICharacterControl = GetComponent<AICharacterControl>();
+        aICharacterControl = GetComponent<AICharacterControl>(); // Find the player in Scene and assign player to AICharacterControl.target
         player = GameObject.FindGameObjectWithTag("Player");
-        if (player)
-        {
-            Debug.Log(player.transform);
-            aICharacterControl.target = player.transform;
-        }
-        StartCoroutine(ToggleNavMeshAgent());
+        
+        StartCoroutine(ToggleNavMeshAgentAndAIScript());
     }
 
-    IEnumerator ToggleNavMeshAgent()
+    IEnumerator ToggleNavMeshAgentAndAIScript()
     {
         // Toggle the Nav Mesh Agent for the AI start working after Instantiate
         navMeshAgent.enabled = false;
-        yield return new WaitForSeconds(3.0f);
+        aICharacterControl.enabled = false;
+
+        yield return new WaitForSeconds(3.0f); // Wait for the zombie hit the ground (or nav mesh)
+
         navMeshAgent.enabled = true;
+        aICharacterControl.enabled = true;
+        aICharacterControl.target = player.transform;
     }
 }

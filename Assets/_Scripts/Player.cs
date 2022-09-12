@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 
     private void OnFindClearArea()
     {
-        helicopter.Call();
         Instantiate(landingArea, transform.position, transform.rotation);
+        helicopter.Call();
     }
 }

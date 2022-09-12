@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ClearArea : MonoBehaviour
-{   
-    public float timeSinceLastTrigger = 5f;
-
+{
+    [SerializeField] float timeToCanCallHelicopter = 20f;
+    [SerializeField] float minTimeToCallHelicopter = 180f;
+    private float timeSinceLastTrigger;
+    
     private void Update()
     {
         timeSinceLastTrigger += Time.deltaTime;
-        if (timeSinceLastTrigger > 5f && Time.realtimeSinceStartup > 10)
+        
+        if (timeSinceLastTrigger > timeToCanCallHelicopter && Time.realtimeSinceStartup > minTimeToCallHelicopter)
         {
-            SendMessageUpwards("OnFindClearArea");
+            Debug.Log("You can call now !!");
+            if (Input.GetButtonDown("CallHeli")){
+                SendMessageUpwards("OnFindClearArea");
+            }
+            
         }
     }
 
