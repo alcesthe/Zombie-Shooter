@@ -13,9 +13,16 @@ public class Gun : MonoBehaviour
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] Light muzzleLight;
     [SerializeField] GameObject impactEffect;
+    [SerializeField] AudioClip gunSFX;
+
+    private AudioSource audioSource;
 
 
     // Update is called once per frame
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
@@ -26,7 +33,7 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
-        StartCoroutine(PlayParticle());
+        StartCoroutine(PlaySFFAndVFX());
 
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
@@ -41,15 +48,17 @@ public class Gun : MonoBehaviour
             {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
+
             GameObject impactGO = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 2f);
         }
     }
 
-    IEnumerator PlayParticle()
+    IEnumerator PlaySFFAndVFX()
     {
         muzzleFlash.Play();
         muzzleLight.enabled = true;
+        audioSource.PlayOneShot(gunSFX);
         yield return new WaitForSeconds(0.05f);
         muzzleLight.enabled = false;
     }
