@@ -10,12 +10,16 @@ public class Zombie : MonoBehaviour
     private GameObject player;
     private AICharacterControl aICharacterControl;
     private NavMeshAgent navMeshAgent;
+    private AudioSource audioSource;
+    private GameManager gameManager;
 
     public bool canDealDamage = true;
 
     [SerializeField] float amountOfTimeToResetAttack = 2f;
     [SerializeField] float health = 50f;
     [SerializeField] float damage = 25f;
+    [SerializeField] int point = 10;
+    [SerializeField] AudioClip deadSound;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +27,8 @@ public class Zombie : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         aICharacterControl = GetComponent<AICharacterControl>(); // Find the player in Scene and assign player to AICharacterControl.target
         player = GameObject.FindGameObjectWithTag("Player");
+        audioSource = GetComponent<AudioSource>();
+        gameManager = FindObjectOfType<GameManager>();
         
         StartCoroutine(ToggleNavMeshAgentAndAIScript());
     }
@@ -51,7 +57,9 @@ public class Zombie : MonoBehaviour
 
     private void Die()
     {
+        audioSource.PlayOneShot(deadSound);
         Destroy(gameObject);
+        gameManager.AddPoint(point);
     }
 
     private void OnCollisionEnter(Collision collision)

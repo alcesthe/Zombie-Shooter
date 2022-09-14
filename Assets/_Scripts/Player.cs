@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     public void Spawn()
     {
+        health = 100;
         Time.timeScale = 1; 
 
         characterController.enabled = false; // Disable to teleport the player
@@ -59,9 +60,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Die()
+    private void Die()
     {
         audioSource.PlayOneShot(deadSound);
         Time.timeScale = 0;
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }

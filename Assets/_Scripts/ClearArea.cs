@@ -5,18 +5,27 @@ using UnityEngine;
 public class ClearArea : MonoBehaviour
 {
     [SerializeField] float timeToCanCallHelicopter = 20f;
-    [SerializeField] float minTimeToCallHelicopter = 180f;
-    private float timeSinceLastTrigger;
     
+
+    private float timeSinceLastTrigger;
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     private void Update()
     {
         timeSinceLastTrigger += Time.deltaTime;
-        
-        if (timeSinceLastTrigger > timeToCanCallHelicopter && Time.realtimeSinceStartup > minTimeToCallHelicopter)
+        if (Input.GetButtonDown("CallHeli"))
         {
-            Debug.Log("You can call now !!");
-            if (Input.GetButtonDown("CallHeli")){
+            if (timeSinceLastTrigger > timeToCanCallHelicopter && gameManager.GetIsHelicopterAvailable())
+            {
                 SendMessageUpwards("OnFindClearArea");
+            } else
+            {
+                Debug.Log("TODO NEED MORE SPACE DIALOG");
             }
             
         }
