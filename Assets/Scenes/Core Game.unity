@@ -1093,7 +1093,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3954731770243135743, guid: fb57ec9fc4d9e6546b705151e85029ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 144.45
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3954731770409235556, guid: fb57ec9fc4d9e6546b705151e85029ea, type: 3}
       propertyPath: m_Name
@@ -1149,7 +1149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3954731771612065970, guid: fb57ec9fc4d9e6546b705151e85029ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 151.1
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3954731771612065970, guid: fb57ec9fc4d9e6546b705151e85029ea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1161,7 +1161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3954731772151504278, guid: fb57ec9fc4d9e6546b705151e85029ea, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 131.8
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3954731772151504278, guid: fb57ec9fc4d9e6546b705151e85029ea, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1181,6 +1181,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8621364658386421264, guid: 34c616f1df4a15041b3ab1ee709d595e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621364658950056756, guid: 34c616f1df4a15041b3ab1ee709d595e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621364659113594461, guid: 34c616f1df4a15041b3ab1ee709d595e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8621364659622511302, guid: 34c616f1df4a15041b3ab1ee709d595e, type: 3}
       propertyPath: m_Name
       value: Zombie Spawn Points
