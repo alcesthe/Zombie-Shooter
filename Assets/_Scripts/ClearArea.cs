@@ -20,14 +20,22 @@ public class ClearArea : MonoBehaviour
         timeSinceLastTrigger += Time.deltaTime;
         if (Input.GetButtonDown("CallHeli"))
         {
-            if (timeSinceLastTrigger > timeToCanCallHelicopter && gameManager.GetIsHelicopterAvailable())
+            if (gameManager.GetIsHelicopterAvailable())
             {
-                SendMessageUpwards("OnFindClearArea");
-            } else
-            {
-                Debug.Log("TODO NEED MORE SPACE DIALOG");
+                if (timeSinceLastTrigger > timeToCanCallHelicopter)
+                {
+                    SendMessageUpwards("OnFindClearArea");
+                    gameManager.SetMessage("Helicopter is comming !!! Defend yourself");
+                }
+                else
+                {
+                    gameManager.SetMessage("You need to stand in a clear area to call the Helicopter & Wait for about few seconds");
+                }
             }
-            
+            else
+            {
+                gameManager.SetMessage("You need wait for the timer count down to call Helicopter");
+            }
         }
     }
 
