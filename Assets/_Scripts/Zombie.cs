@@ -10,7 +10,12 @@ public class Zombie : MonoBehaviour
     private GameObject player;
     private AICharacterControl aICharacterControl;
     private NavMeshAgent navMeshAgent;
+
+    public bool canDealDamage = true;
+
+    [SerializeField] float amountOfTimeToResetAttack = 2f;
     [SerializeField] float health = 50f;
+    [SerializeField] float damage = 25f;
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +52,25 @@ public class Zombie : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player") && canDealDamage)
+        {
+            StartCoroutine(DealDamage(collision.transform.GetComponent<Player>()));
+        }
+    }
+
+    IEnumerator DealDamage(Player player)
+    {
+        canDealDamage = false;
+        player.TakeDamage(damage);
+        aICharacterControl.enabled = false; // Stop moving
+
+        yield return new WaitForSeconds(amountOfTimeToResetAttack);
+
+        aICharacterControl.enabled = true; // Start chasing the character again
+        canDealDamage = true;
     }
 }

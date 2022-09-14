@@ -8,12 +8,12 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject spawnPoints;
     [SerializeField] AudioClip startVoice;
     [SerializeField] GameObject landingArea;
+    [SerializeField] float health = 100f;
+    [SerializeField] AudioClip deadSound;
     
     private Transform[] listOfSpawnPointsTransform;
     private CharacterController characterController;
     private AudioSource audioSource;
-    private bool respawn = false;
-    private bool lastToggle = false;
     
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
 
+        Spawn();
         PlayPlayerBeginSound();
     }
 
@@ -30,21 +31,10 @@ public class Player : MonoBehaviour
         audioSource.PlayOneShot(startVoice);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Spawn()
     {
-        if (lastToggle != respawn)
-        {
-            Respawn();
-            respawn = false;
-        } else
-        {
-            lastToggle = respawn;
-        }
-    }
+        Time.timeScale = 1; 
 
-    public void Respawn()
-    {
         characterController.enabled = false; // Disable to teleport the player
 
         int index = Random.Range(1, listOfSpawnPointsTransform.Length);
@@ -53,9 +43,25 @@ public class Player : MonoBehaviour
         characterController.enabled = true; // Turn it back on when done teleport the player
     }
 
+    // Reference in ClearArea.cs SendMessage method
     private void OnFindClearArea()
     {
         Instantiate(landingArea, transform.position, transform.rotation);
         helicopter.Call();
+    }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0f)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        audioSource.PlayOneShot(deadSound);
+        Time.timeScale = 0;
     }
 }
