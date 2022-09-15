@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private Transform[] listOfSpawnPointsTransform;
     private CharacterController characterController;
     private AudioSource audioSource;
+    private LevelLoader levelLoader;
     
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,10 @@ public class Player : MonoBehaviour
         listOfSpawnPointsTransform = spawnPoints.GetComponentsInChildren<Transform>();
         characterController = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
+        levelLoader = FindObjectOfType<LevelLoader>();
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         Spawn();
         PlayPlayerBeginSound();
@@ -64,7 +69,9 @@ public class Player : MonoBehaviour
     {
         audioSource.PlayOneShot(deadSound);
         Time.timeScale = 0;
+        levelLoader.LoadEndScene();
     }
+
 
     public float GetHealth()
     {

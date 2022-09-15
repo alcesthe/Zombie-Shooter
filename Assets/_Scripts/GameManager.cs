@@ -6,6 +6,21 @@ using UnityEngine.UI;
 
 public  class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    public bool isEscaped = false;
+    void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     [SerializeField] Slider healthDisplay;
     [SerializeField] Text scoreDisplay;
     [SerializeField] Text timerDisplay;
@@ -20,19 +35,6 @@ public  class GameManager : MonoBehaviour
     private int score = 0;
     private bool isHelicopterAvailable = false;
     private bool isDisplayingMessage = false;
-
-    /*    private void Awake()
-        {
-            GameManager gameManager = FindObjectOfType<GameManager>();
-            if (gameManager)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-        }*/
 
     // Update is called once per frame
     void Update()
@@ -87,5 +89,10 @@ public  class GameManager : MonoBehaviour
 
         messagePanel.gameObject.SetActive(false);
         isDisplayingMessage = false;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }

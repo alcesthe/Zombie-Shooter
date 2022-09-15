@@ -2,22 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class Helicopter : MonoBehaviour
 {
     [SerializeField] AudioClip callSound;
     [SerializeField] float helicopterSpeed = 50f;
 
+    public UnityEvent onInteract;
     private AudioSource audioSource;
     private LandingArea landingArea;
     private bool called = false;
     private Transform[] listOfWaypoints;
     private int waypointIndex = 1;
 
+
     // Start is called before the first frame update
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
     }
 
     private void FixedUpdate()
